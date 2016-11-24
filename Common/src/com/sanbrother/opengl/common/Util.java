@@ -2,11 +2,11 @@ package com.sanbrother.opengl.common;
 
 import android.opengl.Matrix;
 
-public final class MatrixUtil {
+public final class Util {
 	/**
 	 * Singleton
 	 */
-	private MatrixUtil() {
+	private Util() {
 		
 	}
 

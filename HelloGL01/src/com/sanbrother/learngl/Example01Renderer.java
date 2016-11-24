@@ -3,11 +3,11 @@ package com.sanbrother.learngl;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import com.sanbrother.opengl.common.MatrixUtil;
-
 import android.content.Context;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView.Renderer;
+
+import com.sanbrother.opengl.common.Util;
 
 public class Example01Renderer implements Renderer {
 
@@ -25,7 +25,7 @@ public class Example01Renderer implements Renderer {
 		// Set the OpenGL viewport to the same size as the surface.
 		GLES20.glViewport(0, 0, width, height);
 
-		MatrixUtil.setupOrthoProjectionMatrix(mProjectionMatrix, width, height, 1.0f, 10.0f, true);
+		Util.setupOrthoProjectionMatrix(mProjectionMatrix, width, height, 1.0f, 10.0f, true);
 	}
 
 	@Override
