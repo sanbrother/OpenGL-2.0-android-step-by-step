@@ -1,6 +1,9 @@
 package com.sanbrother.learngl;
 
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.Context;
+import android.content.pm.ConfigurationInfo;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,12 +16,24 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		mSurfaceView = new Example01GLSurfaceView(this);
-		// Crashes if not set
-		mSurfaceView.setEGLContextClientVersion(2);
-		mSurfaceView.setRenderer(new Example01Renderer(this));
+		// Check if the system supports OpenGL ES 2.0.
+		final ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+		final ConfigurationInfo configurationInfo = activityManager.getDeviceConfigurationInfo();
+		final boolean supportsEs2 = configurationInfo.reqGlEsVersion >= 0x20000;
 
-		setContentView(mSurfaceView);
+		if (supportsEs2) {
+			mSurfaceView = new Example01GLSurfaceView(this);
+
+			// Request an OpenGL ES 2.0 compatible context.
+			mSurfaceView.setEGLContextClientVersion(2);
+			// Set the renderer to our demo renderer, defined below.
+			mSurfaceView.setRenderer(new Example01Renderer(this));
+
+			setContentView(mSurfaceView);
+		} else {
+			// TODO : Show alert message
+			setContentView(R.layout.activity_main);
+		}
 	}
 
 	@Override
