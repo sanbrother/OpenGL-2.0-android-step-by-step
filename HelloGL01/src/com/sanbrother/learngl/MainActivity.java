@@ -1,16 +1,24 @@
 package com.sanbrother.learngl;
 
 import android.app.Activity;
+import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends Activity {
+	private GLSurfaceView mSurfaceView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+
+		mSurfaceView = new Example01GLSurfaceView(this);
+		// Crashes if not set
+		mSurfaceView.setEGLContextClientVersion(2);
+		mSurfaceView.setRenderer(new Example01Renderer(this));
+
+		setContentView(mSurfaceView);
 	}
 
 	@Override
